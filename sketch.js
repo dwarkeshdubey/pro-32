@@ -3,7 +3,7 @@ const Engine = Matter.Engine;
 const World= Matter.World;
 const Bodies = Matter.Bodies;
 const Constraint = Matter.Constraint;
-
+var hour
 var engine, world;
 var backgroundImg;
 
@@ -21,25 +21,26 @@ function setup(){
 }
 
 function draw(){
+    if(backgroundImg)
+        background(backgroundImg)
+      
 
-    textSize(35)
-fill("brown")
-text("time=")
-
-
-
-    // add condition to check if any background image is there to add
-    if(backgroundImg){
-    background(backgroundImg)
-    }
-
-    Engine.update(engine);
-
-    // write code to display time in correct format here
+        Engine.update(engine);
+        fill("brown")
+        textSize(35)
+  
+     if(hour>=12){
+    text("time="+hour%12+"pm",50,100)
+   }
+      else if (hour==0){
+    text("time=12 AM",100,100)
     
+   }
+    else{
+    text("time"+hour%12+"am",50,100)
+  }
 
-
-}
+  }
 
 async function getBackgroundImg(){
 
@@ -53,7 +54,7 @@ async function getBackgroundImg(){
 
     // write code slice the datetime
     var datetime= responseJson.datetime
-    var hour=datetime.slice(11,13)
+    hour=datetime.slice(11,13)
 
     console.log(hour)
 
